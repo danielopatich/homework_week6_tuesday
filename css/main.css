@@ -28,11 +28,12 @@ h1 {
   font-weight: bolder;
   font-size: 30px; }
 
-a {
+span {
+  display: block;
   text-decoration: none;
   color: #F8F2FF;
   opacity: .7;
-  margin: 45px;
+  margin: 10px;
   padding: 0; }
 
 .pageWrap {
@@ -43,12 +44,18 @@ a {
   .pageWrap:last-child {
     margin-right: 0; }
 
-main {
+#contactForm, #contactMain {
   margin: 0;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 48.82117%;
   margin-left: 34.11922%; }
-  main:last-child {
+  #contactForm:last-child, #contactMain:last-child {
     margin-right: 0; }
+
+input {
+  border: 5px solid #282C34;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 5px; }

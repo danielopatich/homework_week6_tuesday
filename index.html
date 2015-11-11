@@ -6,45 +6,48 @@
     <link rel="stylesheet" href="css/main.css" media="screen">
   </head>
   <body>
-    <header>
+    <!-- <header>
       <h1>Rally Records</h1>
       <br>
       <h1><a href="#home">Submit Contacts</a><a href="#contacts">Contacts List</a></h1>
-    </header>
-    <div class="pageWrap">
+    </header> -->
+<main>
+
+<div class="pageWrap">
 
 
+    <section id="contactForm">
 
-    <main id="main">
+    </section>
+
+    <section id="contactMain">
       <!-- <img src="http://www.41music.net/spinningrecord.gif" alt="loading...."> -->
-    </main>
-    </div>
+    </section>
 
-    <script type="text/template" id="inputTemplate">
+</div>
+</main>
+
+    <script type="text/template" id="formTemplate">
       <h2>Contact Us</h2>
         <span>First Name</span><input type="text" name="" class="first" value="" placeholder="First Name...">
         <span>Last Name</span><input type="text" name="" class="last" value="" placeholder="Last Name...">
         <span>Phone</span><input type="text" name="" class="phone" value="" placeholder="(999)999-9999...">
         <span>Twitter</span><input type="text" name="" class="twitter" value="" placeholder="@TwitterHandle....">
         <span>Github</span><input type="text" name="" class="github" value="" placeholder="Github.com/Username...">
-          <input type="text" name="" class="submitBtn" value="" placeholder="Submit">
+        <span>Submit</span><br>  <input type="button" name="" class="submitBtn" value="Submit" placeholder="Submit">
     </script>
 
-    <script type="text/template" id="contactTemplate">
+    <script type="text/template" id="mainTemplate">
       <h2>Contacts</h2>
+        <ul>
         <% _.forEach(contacts, function(user){ %>
-        <a href"#">New Contact</a>
-          <strong>First Name:</strong>
-            <span><%= user.first %></span>
-          <strong>Last Name:</strong>
-            <span><%= user.last %></span>
-          <strong>Phone:</strong>
-            <span><%= user.phone %></span>
-          <strong>Twitter:</strong>
-            <span><%= user.twitter %></span>
-          <strong>Github</strong>
-            <span><%= user.github %></span>
+              <li><%= user.first %></li>
+              <li><%= user.last %></li>
+              <li><%= user.phone %></li>
+              <li>twitter.com/<%= user.twitter %></li>
+              <li><%= user.github %></li>
         <% }) %>
+        </ul>
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>

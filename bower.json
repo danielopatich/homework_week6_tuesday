@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "neat": "~1.7.2"
+    "neat": "~1.7.2",
+    "backbone": "~1.2.3"
   }
 }

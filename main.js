@@ -1,104 +1,96 @@
-var App={};
-App.Model={};
-App.View={};
-App.Collection={};
-
-
-// ROUTER //
-var Router = Backbone.Router.extend({
-  routes: {
-    '': 'home',
-    'contacts': 'contacts'
-  },
-  home: function(){
-    var newHome = new HomeView();
-    $('#main').append(view.render().el);
-  },
-
-  contacts: function(){
-    var collection = new ContactColl();
-    var newContacts = new HomeView({
-      collection: collection
-    });
-      collection.fetch({
-      success: function(){
-        $('#main').html(view.render().el);
-      }
-    })
-  }
-});
-
-// END ROUTER //
-
 // MODELS //
-var ContactModel = Backbone.Model.extend({
-  url: 'https://tiny-starburst.herokuapp.com/collections',
-  default: {
-    first   : '',
-    last    : '',
-    phone   : '',
-    twitter : '',
-    github  : '',
-  },
+var ContactMo = Backbone.Model.extend({
+  urlRoot: 'https://tiny-starburst.herokuapp.com/collections/danielopatich',
+
 });
 // END MODELS //
 
 // COLLECTIONS //
-var ContactColl = Backbone.Collection.extend({
-  url: 'https://tiny-starburst.herokuapp.com/collections',
-  model: App.Models.Contact
+var ContactCo = Backbone.Collection.extend({
+  url: 'https://tiny-starburst.herokuapp.com/collections/danielopatich',
+  model: ContactMo
 });
 // END COLLECTIONS //
 
 // VIEWS //
-
-var HomePage = Backbone.View.extend({
-  initialize:function(options){
-    $(".submitBtn").on("click", this.send);
+var FormView = Backbone.View.extend({
+  initialize:function(){
+    this.render();
+    console.log('Contact Form Page Rendered.')
   },
-  template: _.template($('#inputTemplate').html()),
+
+  tagName: 'form',
+  template: _.template($('#formTemplate').html()),
+
   events: {
-    'click .submitBtn': 'handleClick'
+    'click .submitBtn': 'send'
   },
 
-  send: function(){
+  send: function(event){
     var first = $('.first').val();
     var last = $('.last').val();
     var phone = $('.phone').val();
     var twitter = $('.twitter').val();
     var github = $('.github').val();
-
-    var newContact = new ContactColl({
+    var contact = new ContactCo({
       first: first,
       last: last,
       phone: phone,
       twitter: twitter,
       github: github,
     });
-
-  }
-  newContact.save();
+    this.model.save(null, {
+      success: function() {
+      }
+    });
 },
-  render: function(){
-    this.$el.html(this.template());
-  },
-  handleClick: function(event){
-    console.log('User submitted contact info');
-    event.preventDefault();
-    this.send();
-  },
+
+
+render: function() {
+  $('#contactForm').html(this.$el.html(this.template()));
+},
 });
 
 var ContactsView = Backbone.View.extend({
-  render: function(){
-    var template = _.template($('#contactTemplate').html(), {user: this.collection.toJSON()});
-    this.$el.html(template);
-  },
+  template: _.template($('#mainTemplate').html()),
+
+  render: function() {
+    this.$el.html(this.template({
+      contacts: this.collection.toJSON()
+    }));
+    return this;
+  }
 });
 // END VIEWS //
 
 
-$('document').ready(function() {
-  App.router = new App.Router();
-  Backbone.history.start();
+
+
+// BUILD //
+var contactFormView = new FormView({
+  model: new ContactMo()
 });
+
+  function contactList(){
+    var collection = new ContactCo();
+    var newContacts = new ContactsView({
+      collection: collection
+    });
+    collection.fetch({
+    success: function(){
+      newContacts.render();
+      $('#contactMain').html(newContacts.el);
+    }
+  })
+};
+
+// END BUILD //
+
+contactList();
+
+// (document).ready(function(){
+//   $('section').click(function(){
+//     $('img').show();
+//     setTimeout(function() {$('img').hide()}, 5000);
+//   });
+// });
