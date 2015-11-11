@@ -14,13 +14,13 @@ var ContactCo = Backbone.Collection.extend({
 
 // VIEWS //
 var FormView = Backbone.View.extend({
+  tagName: 'form',
+  template: _.template($('#formTemplate').html()),
+
   initialize:function(){
     this.render();
     console.log('Contact Form Page Rendered.')
   },
-
-  tagName: 'form',
-  template: _.template($('#formTemplate').html()),
 
   events: {
     'click .submitBtn': 'send'
